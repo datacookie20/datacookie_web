@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DataCookie — Data That's Deliciously Simple</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --brown: #5C3D2E;
+            --caramel: #C8813A;
+            --cream: #FFF8F0;
+            --gold: #F4A940;
+            --text: #2D1B0E;
+            --muted: #8B6352;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background-color: var(--cream);
+            color: var(--text);
+        }
+
+        /* NAV */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 60px;
+            background: white;
+            box-shadow: 0 2px 12px rgba(92,61,46,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--brown);
+            letter-spacing: -0.5px;
+        }
+
+        .logo span {
+            color: var(--caramel);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--muted);
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--caramel);
+        }
+
+        .nav-cta {
+            background: var(--caramel);
+            color: white !important;
+            padding: 10px 24px;
+            border-radius: 50px;
+            font-weight: 600 !important;
+        }
+
+        .nav-cta:hover {
+            background: var(--brown);
+            color: white !important;
+        }
+
+        /* HERO */
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 100px 60px;
+            max-width: 1200px;
+            margin: 0 auto;
+            gap: 60px;
+        }
+
+        .hero-text {
+            flex: 1;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: #FDE8CA;
+            color: var(--caramel);
+            font-size: 0.85rem;
+            font-weight: 600;
+            padding: 6px 16px;
+            border-radius: 50px;
+            margin-bottom: 20px;
+            letter-spacing: 0.3px;
+        }
+
+        .hero h1 {
+            font-size: 3.4rem;
+            font-weight: 900;
+            line-height: 1.15;
+            color: var(--brown);
+            margin-bottom: 20px;
+        }
+
+        .hero h1 span {
+            color: var(--caramel);
+        }
+
+        .hero p {
+            font-size: 1.15rem;
+            line-height: 1.75;
+            color: var(--muted);
+            margin-bottom: 36px;
+            max-width: 480px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: var(--caramel);
+            color: white;
+            padding: 14px 32px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1rem;
+            transition: background 0.2s, transform 0.15s;
+        }
+
+        .btn-primary:hover {
+            background: var(--brown);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--brown);
+            padding: 14px 32px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            border: 2px solid #E8D5C4;
+            transition: border-color 0.2s, transform 0.15s;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--caramel);
+            transform: translateY(-2px);
+        }
+
+        /* Cookie illustration */
+        .hero-visual {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .cookie-graphic {
+            width: 380px;
+            height: 380px;
+            background: radial-gradient(circle at 40% 35%, #F5C87A, #C8813A 60%, #8B5E3C);
+            border-radius: 50%;
+            position: relative;
+            box-shadow: 0 24px 60px rgba(92,61,46,0.25);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-16px); }
+        }
+
+        .cookie-emoji {
+            font-size: 9rem;
+            filter: drop-shadow(0 8px 16px rgba(0,0,0,0.2));
+        }
+
+        .chip {
+            position: absolute;
+            background: #4A2C0A;
+            border-radius: 50%;
+        }
+
+        /* STATS */
+        .stats {
+            background: var(--brown);
+            padding: 50px 60px;
+        }
+
+        .stats-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--gold);
+        }
+
+        .stat-label {
+            color: #D4B89A;
+            margin-top: 4px;
+            font-size: 0.95rem;
+        }
+
+        /* SERVICES */
+        .services {
+            padding: 100px 60px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-tag {
+            color: var(--caramel);
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 12px;
+        }
+
+        .section-header h2 {
+            font-size: 2.4rem;
+            font-weight: 800;
+            color: var(--brown);
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 28px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 36px 28px;
+            box-shadow: 0 4px 24px rgba(92,61,46,0.07);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 36px rgba(92,61,46,0.13);
+        }
+
+        .card-icon {
+            font-size: 2.5rem;
+            margin-bottom: 18px;
+        }
+
+        .card h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--brown);
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            color: var(--muted);
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
+
+        /* TESTIMONIAL */
+        .testimonial-section {
+            background: #FDE8CA;
+            padding: 80px 60px;
+        }
+
+        .testimonial-inner {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .testimonial-inner blockquote {
+            font-size: 1.4rem;
+            font-weight: 500;
+            color: var(--brown);
+            line-height: 1.7;
+            font-style: italic;
+            margin-bottom: 24px;
+        }
+
+        .testimonial-author {
+            color: var(--muted);
+            font-weight: 600;
+        }
+
+        /* CTA */
+        .cta-section {
+            padding: 100px 60px;
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .cta-section h2 {
+            font-size: 2.6rem;
+            font-weight: 900;
+            color: var(--brown);
+            margin-bottom: 16px;
+        }
+
+        .cta-section p {
+            color: var(--muted);
+            font-size: 1.1rem;
+            margin-bottom: 36px;
+            line-height: 1.7;
+        }
+
+        /* FOOTER */
+        footer {
+            background: var(--brown);
+            color: #D4B89A;
+            text-align: center;
+            padding: 32px 60px;
+            font-size: 0.9rem;
+        }
+
+        footer strong {
+            color: var(--gold);
+        }
+
+        @media (max-width: 768px) {
+            nav { padding: 16px 24px; }
+            .nav-links { display: none; }
+            .hero { flex-direction: column; padding: 60px 24px; text-align: center; }
+            .hero h1 { font-size: 2.2rem; }
+            .hero p { max-width: 100%; }
+            .hero-buttons { justify-content: center; }
+            .cookie-graphic { width: 260px; height: 260px; }
+            .cookie-emoji { font-size: 6rem; }
+            .stats { padding: 40px 24px; }
+            .stats-inner { grid-template-columns: 1fr; gap: 24px; }
+            .services { padding: 60px 24px; }
+            .cards { grid-template-columns: 1fr; }
+            .testimonial-section { padding: 60px 24px; }
+            .cta-section { padding: 60px 24px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAV -->
+    <nav>
+        <div class="logo">data<span>cookie</span> 🍪</div>
+        <ul class="nav-links">
+            <li><a href="#">บริการ</a></li>
+            <li><a href="#">ผลงาน</a></li>
+            <li><a href="#">บทความ</a></li>
+            <li><a href="#" class="nav-cta">ติดต่อเรา</a></li>
+        </ul>
+    </nav>
+
+    <!-- HERO -->
+    <section>
+        <div class="hero">
+            <div class="hero-text">
+                <div class="hero-badge">🍪 Data Made Delicious</div>
+                <h1>เปลี่ยน <span>ข้อมูล</span> ให้เป็น<br>เรื่องที่เข้าใจง่าย</h1>
+                <p>DataCookie ช่วยให้ธุรกิจของคุณเข้าใจข้อมูลได้ลึกขึ้น ด้วย Data Analytics, Visualization และ Dashboard ที่อ่านง่ายเหมือนกินคุกกี้</p>
+                <div class="hero-buttons">
+                    <a href="#" class="btn-primary">เริ่มต้นฟรี →</a>
+                    <a href="#" class="btn-secondary">ดูผลงาน</a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="cookie-graphic">
+                    <span class="cookie-emoji">🍪</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- STATS -->
+    <section class="stats">
+        <div class="stats-inner">
+            <div>
+                <div class="stat-number">200+</div>
+                <div class="stat-label">ลูกค้าที่ไว้วางใจ</div>
+            </div>
+            <div>
+                <div class="stat-number">1,500+</div>
+                <div class="stat-label">Dashboard ที่สร้างแล้ว</div>
+            </div>
+            <div>
+                <div class="stat-number">98%</div>
+                <div class="stat-label">ลูกค้าพึงพอใจ</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section class="services">
+        <div class="section-header">
+            <div class="section-tag">บริการของเรา</div>
+            <h2>Data ทุกชนิด เราจัดการได้</h2>
+        </div>
+        <div class="cards">
+            <div class="card">
+                <div class="card-icon">📊</div>
+                <h3>Data Visualization</h3>
+                <p>แปลงตัวเลขที่ซับซ้อนให้กลายเป็นกราฟและชาร์ตที่สวยงาม เข้าใจง่าย และนำเสนอได้ทันที</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">🔍</div>
+                <h3>Data Analytics</h3>
+                <p>วิเคราะห์ข้อมูลเชิงลึกเพื่อหา Insight ที่ซ่อนอยู่ ช่วยให้ตัดสินใจได้แม่นยำและรวดเร็วขึ้น</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">🛠️</div>
+                <h3>Dashboard Building</h3>
+                <p>สร้าง Dashboard แบบ Real-time ที่ติดตามผลธุรกิจได้ทุกวัน ด้วยเครื่องมืออย่าง Power BI, Looker และ Tableau</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">🤖</div>
+                <h3>Data Automation</h3>
+                <p>ออกแบบ Pipeline และ Workflow อัตโนมัติ ลดงาน Manual ที่น่าเบื่อ ประหยัดเวลาได้มากขึ้น</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">🎓</div>
+                <h3>Data Training</h3>
+                <p>อบรม Workshop ด้าน Data ให้ทีมของคุณ ตั้งแต่ Beginner จนถึง Advanced ในแบบที่สนุกและเข้าใจง่าย</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">💬</div>
+                <h3>Data Consulting</h3>
+                <p>ให้คำปรึกษาด้านกลยุทธ์ข้อมูล ออกแบบ Data Stack ที่เหมาะกับธุรกิจของคุณโดยเฉพาะ</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIAL -->
+    <section class="testimonial-section">
+        <div class="testimonial-inner">
+            <div class="section-tag">เสียงจากลูกค้า</div>
+            <blockquote>
+                "DataCookie ช่วยให้เราเห็น Insight ที่ไม่เคยเห็นมาก่อน ทีมงานมืออาชีพ เข้าใจปัญหาธุรกิจจริงๆ และส่งมอบงานได้เร็วมาก"
+            </blockquote>
+            <div class="testimonial-author">— คุณสมชาย W., Head of Business Intelligence @ TechStartup</div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section">
+        <h2>พร้อมลองชิม Data<br>ที่อร่อยกว่านี้ไหม? 🍪</h2>
+        <p>เริ่มต้นฟรี ปรึกษาผู้เชี่ยวชาญได้เลย ไม่มีค่าใช้จ่ายในการพูดคุย</p>
+        <a href="#" class="btn-primary">นัดคุยฟรีเลย →</a>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>© 2026 <strong>DataCookie</strong> — Data That's Deliciously Simple 🍪</p>
+    </footer>
+
+</body>
+</html>
